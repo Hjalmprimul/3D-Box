@@ -1,0 +1,188 @@
+@charset "UTF-8";
+:root {
+  --boxColor: #0ff7;
+  --rotateSpeed: 30s;
+  --ballSpedd: 1s;
+}
+
+body {
+  background-color: #000;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 50px; /* Tamaño de los objetos */
+  /* Perspective */
+  perspective: 10em; /* Distancia al punto 0 del eje */
+  perspective-origin: 50% calc(50% - 2em); /* Posicion de la vista */
+}
+
+.scene {
+  position: relative;
+  transform-style: preserve-3d;
+  /* Animation */
+  -webkit-animation: sceneRotate var(--rotateSpeed) infinite linear;
+          animation: sceneRotate var(--rotateSpeed) infinite linear;
+}
+@-webkit-keyframes sceneRotate {
+  to {
+    transform: rotateY(360deg);
+  }
+}
+@keyframes sceneRotate {
+  to {
+    transform: rotateY(360deg);
+  }
+}
+
+.ball {
+  /* Size */
+  width: 1em;
+  height: 1em;
+  /* Form */
+  border-radius: 50%;
+  /* Color */
+  background: white;
+  /* Position */
+  position: absolute;
+  left: -0.5em;
+  bottom: 1em;
+  /* Shadow */
+  background-image: radial-gradient(circle at top, white, 50%, #000);
+  /* Animation */
+  animation: revote var(--ballSpedd) infinite ease-out, sceneRotate var(--rotateSpeed) infinite linear reverse;
+}
+@-webkit-keyframes revote {
+  0%, 100% {
+    bottom: 1em;
+  }
+  50% {
+    bottom: 3em;
+    -webkit-animation-timing-function: ease-in;
+            animation-timing-function: ease-in;
+  }
+}
+@keyframes revote {
+  0%, 100% {
+    bottom: 1em;
+  }
+  50% {
+    bottom: 3em;
+    -webkit-animation-timing-function: ease-in;
+            animation-timing-function: ease-in;
+  }
+}
+
+.cube {
+  transform-style: preserve-3d; /* Hereda la posicon 3D a los hijos */
+  /* Size */
+  width: 2em;
+  height: 2em;
+  /* Position */
+  position: absolute;
+  top: -1em;
+  left: -1em;
+  /* Cube Faces */
+}
+.cube .left, .cube .right, .cube .front, .cube .back {
+  /* Position */
+  position: absolute;
+  /* Size */
+  width: 100%;
+  height: 100%;
+  /* Color */
+  background: var(--boxColor);
+  /* Shadow */
+  box-shadow: 0 0 0.5em rgba(0, 0, 0, 0.6666666667) inset;
+}
+.cube .front {
+  /* Position */
+  transform: translateZ(1em);
+}
+.cube .right {
+  /* Position */
+  transform: rotateY(90deg) translateZ(1em);
+}
+.cube .back {
+  /* Position */
+  transform: rotateY(180deg) translateZ(1em);
+}
+.cube .left {
+  /* Position */
+  transform: rotateY(270deg) translateZ(1em);
+}
+.cube .top {
+  /* Position */
+  position: absolute;
+  transform: translateY(-50%) rotateX(90deg);
+  /* Size */
+  width: 2em;
+  height: 2em;
+  /* Color */
+  background: var(--boxColor);
+  /* Shadow */
+  box-shadow: 0 0 0.5em rgba(0, 0, 0, 0.6666666667) inset;
+}
+.cube .bottom {
+  /* Position */
+  position: absolute;
+  transform: translateY(50%) rotateX(90deg);
+  /* Size */
+  width: 2em;
+  height: 2em;
+  /* Color */
+  background: rgba(0, 0, 0, 0.4666666667);
+  bottom: 0;
+  /* Shadow */
+  box-shadow: 0 0 1em #000;
+}
+
+.ballShadow {
+  /* Position */
+  position: absolute;
+  /* Size */
+  width: 100%;
+  height: 100%;
+  /* Shadow */
+  background-image: radial-gradient(rgba(0, 0, 0, 0.4666666667), rgba(0, 0, 0, 0) 50%);
+  /* Animation */
+  -webkit-animation: ballShadow var(--ballSpedd) infinite ease-out;
+          animation: ballShadow var(--ballSpedd) infinite ease-out;
+}
+@-webkit-keyframes ballShadow {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(3);
+    -webkit-animation-timing-function: ease-in;
+            animation-timing-function: ease-in;
+    opacity: 0.5;
+  }
+}
+@keyframes ballShadow {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(3);
+    -webkit-animation-timing-function: ease-in;
+            animation-timing-function: ease-in;
+    opacity: 0.5;
+  }
+}
+
+.floor {
+  /* Size */
+  width: 15em;
+  height: 15em;
+  /* Background */
+  background-image: radial-gradient(rgba(0, 0, 0, 0), #000 50%), repeating-conic-gradient(from 45deg, #111 0deg 90deg, #222 90deg 180deg);
+  background-size: 100%, 1em 1em;
+  /* Position */
+  position: absolute;
+  transform: translate(-50%, -50%) rotateX(90deg);
+  top: 1em;
+}/*# sourceMappingURL=index.css.map */
